@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Make a Wish 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="background-gradient"></div>
+  <div class="floating-balloons">
+    <div class="balloon b1"></div>
+    <div class="balloon b2"></div>
+    <div class="balloon b3"></div>
+    <div class="balloon b4"></div>
+  </div>
+
+  <main class="page">
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="index.html" class="site-logo">For<br class="logo-br"> You<span> 🎂</span></a>
+        <nav class="site-nav">
+          <a href="timeline.html">Memories</a>
+          <a href="letter.html">Letter</a>
+          <a href="wishes.html">Wishes</a>
+          <a href="gallery.html">Gallery</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="section section-center" id="wishes-2">
+      <div class="section-header">
+        <p class="section-overline">Make a wish</p>
+        <h2>Blow Out The Candles</h2>
+        <p class="section-description">
+          Close your eyes, make a wish, and when you’re ready — tap the cake.
+        </p>
+      </div>
+
+      <div class="wish-page-icon-wrap" id="wish-page-icon-wrap">
+        <div class="wish-page-icon" id="wish-page-icon">
+          <img src="assets/icon.jpg" alt="" class="wish-icon-open" />
+          <img src="assets/wink.jpg" alt="" class="wish-icon-wink" />
+          <div class="shooting-stars" id="shooting-stars" aria-hidden="true">
+            <span class="star star-1">✦</span>
+            <span class="star star-2">✧</span>
+            <span class="star star-3">✦</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cake-container">
+        <div class="cake" id="cake">
+          <div class="cake-layer layer-bottom"></div>
+          <div class="cake-layer layer-middle"></div>
+          <div class="cake-layer layer-top"></div>
+          <div class="candles">
+            <div class="candle"><span class="flame"></span></div>
+            <div class="candle"><span class="flame"></span></div>
+            <div class="candle"><span class="flame"></span></div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+        <button class="btn ghost" id="blow-candles">Blow the candles ✨</button>
+      </div>
+
+      <div class="wish-hearts">
+        <button class="heart" data-heart="1">❤</button>
+        <button class="heart" data-heart="2">❤</button>
+        <button class="heart" data-heart="3">❤</button>
+        <p class="heart-text" id="heart-message">Tap the hearts to unlock tiny wishes.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="footer-text">
+        Every wish you made here is one I’m quietly cheering for. ✨
+      </p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

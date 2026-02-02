@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Birthday Letter 💌</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="background-gradient"></div>
+  <div class="floating-balloons">
+    <div class="balloon b1"></div>
+    <div class="balloon b2"></div>
+    <div class="balloon b3"></div>
+    <div class="balloon b4"></div>
+  </div>
+
+  <main class="page">
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="index.html" class="site-logo">For<br class="logo-br"> You<span> 🎂</span></a>
+        <nav class="site-nav">
+          <a href="timeline.html">Memories</a>
+          <a href="letter.html">Letter</a>
+          <a href="wishes.html">Wishes</a>
+          <a href="gallery.html">Gallery</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="section section-split" id="wishes">
+      <div class="love-letter reveal">
+        <h2>Your Birthday Letter</h2>
+        <p class="muted">
+          (Let the words appear. They were written just for you.)
+        </p>
+        <div class="typewriter" id="letter-text" data-message="
+Dear Indra,
+
+Another year, another reason to be grateful that you exist.
+
+Thank you for the way you laugh, the way you care, the way you somehow make ordinary school days feel a little bit magical.
+
+If I could bottle up every moment we’ve shared — every late-night talk, every quiet comfort, every pain and every joy, every ridiculous joke — I would. And on days when you doubt yourself, I’d pour them back out and show you just how adored you really are.
+
+You are not just getting older; you are getting wiser, softer, stronger, and even more you — and I adore that version of you.
+
+Happy birthday, my dear friend. I’m so proud of you, so grateful for you, and so excited for everything that’s still ahead.
+
+Always,
+Telmen 🧑‍💻😄
+        "></div>
+        <button class="btn primary" id="replay-letter">Read it again</button>
+      </div>
+
+      <div class="polaroid-grid">
+        <div class="polaroid reveal">
+          <img src="assets/IMG_2517.jpg" alt="Memory polaroid 1" />
+          <span class="polaroid-label">Your most amazing smile!</span>
+        </div>
+        <div class="polaroid reveal delay-1">
+          <img src="assets/photo6.JPG" alt="Memory polaroid 2" />
+          <span class="polaroid-label">Our crazy ass photo</span>
+        </div>
+        <div class="polaroid reveal delay-2">
+          <img src="assets/IMG_5356.JPG" alt="Memory polaroid 3" />
+          <span class="polaroid-label">Us, just picking berries</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="footer-text">
+        You can always come back and reread this — the words will still be true. 💫
+      </p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
