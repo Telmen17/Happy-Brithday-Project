@@ -8,85 +8,87 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Shell: only the audio and iframe live here so audio never reloads */
+    body.shell-page { margin: 0; padding: 0; overflow: hidden; height: 100vh; }
+    #site-frame { display: block; width: 100%; height: 100%; border: none; }
+    #shell-music-toggle {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 9999;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: #fef3c7;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    #shell-music-toggle:hover { background: rgba(30, 41, 59, 0.95); transform: scale(1.05); }
+  </style>
 </head>
-<body>
-  <canvas id="confetti-canvas"></canvas>
+<body class="shell-page">
+  <audio id="ambient-audio" loop preload="metadata">
+    <source src="assets/background.mp3" type="audio/mpeg" />
+  </audio>
+  <button type="button" id="shell-music-toggle" title="Toggle ambient music" aria-label="Toggle ambient music">🎵</button>
+  <iframe id="site-frame" title="Birthday content"></iframe>
+  <script>
+    (function() {
+      var frame = document.getElementById('site-frame');
+      var params = new URLSearchParams(window.location.search);
+      var page = params.get('page');
+      frame.src = (page && /^[a-z0-9_-]+\.html$/i.test(page)) ? page : 'home.html';
 
-  <div class="background-gradient"></div>
-  <div class="floating-balloons">
-    <div class="balloon b1"></div>
-    <div class="balloon b2"></div>
-    <div class="balloon b3"></div>
-    <div class="balloon b4"></div>
-  </div>
-
-  <main class="page">
-    <header class="site-header">
-      <div class="site-header-inner">
-        <a href="index.html" class="site-logo">For<br class="logo-br"> You<span> 🎂</span></a>
-        <nav class="site-nav">
-          <a href="timeline.html">Memories</a>
-          <a href="letter.html">Letter</a>
-          <a href="wishes.html">Wishes</a>
-          <a href="gallery.html">Gallery</a>
-        </nav>
-      </div>
-    </header>
-
-    <header class="hero" id="top">
-      <div class="hero-inner">
-        <p class="hero-overline">For my favorite human</p>
-        <h1 class="hero-title">
-          <span class="letter" data-secret="H">H</span>
-          <span class="letter" data-secret="A">a</span>
-          <span class="letter" data-secret="P">p</span>
-          <span class="letter" data-secret="P2">p</span>
-          <span class="letter" data-secret="Y">y</span>
-          <span>&nbsp;</span>
-          <br>
-          <span class="letter" data-secret="B">B</span>
-          <span class="letter" data-secret="I">i</span>
-          <span class="letter" data-secret="R">r</span>
-          <span class="letter" data-secret="T">t</span>
-          <span class="letter" data-secret="H3">h</span>
-          <span class="letter" data-secret="D">d</span>
-          <span class="letter" data-secret="A2">a</span>
-          <span class="letter" data-secret="Y2">y</span>
-          <span> 🎉</span>
-        </h1>
-        <p class="hero-subtitle">
-          Another lap around the sun with you in my life — and I’m so grateful for every ridiculous, beautiful, unforgettable moment we’ve shared. 💫
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn primary" href="timeline.html">Take a trip down memory lane</a>
-          <a class="btn ghost" href="letter.html">Open your birthday letter</a>
-        </div>
-
-        <div class="hero-meta">
-          <div class="tag">Made with way too much love</div>
-          <button class="icon-button" id="confetti-trigger" title="Press me ✨">
-            <span>✨</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="hero-photo-frame">
-        <!-- Replace `assets/hero-photo.png` with your own PNG -->
-        <img src="assets/IMG_9974.JPG" alt="Us together" class="hero-photo" />
-        <div class="photo-caption">The day everything was a little brighter ✨</div>
-      </div>
-    </header>
-
-    <footer class="footer">
-      <p class="footer-text">
-        P.S. Try typing the <span class="footer-code">↑ ↑ ↓ ↓ ← → ← → B A</span> keys on your keyboard. Just saying. 😉
-      </p>
-      <a class="btn text" href="#top">Back to the stars ↑</a>
-    </footer>
-  </main>
-
-  <script src="script.js"></script>
+      var audio = document.getElementById('ambient-audio');
+      var btn = document.getElementById('shell-music-toggle');
+      if (!audio) return;
+      audio.volume = 0.4;
+      function updateBtn(playing) {
+        if (btn) {
+          btn.textContent = playing ? '🔊' : '🎵';
+          btn.title = playing ? 'Pause ambient music' : 'Play ambient music';
+        }
+      }
+      function toggleAudio() {
+        if (audio.paused) {
+          audio.play().catch(function(){});
+          try { localStorage.setItem('birthday-ambient-playing', '1'); } catch (e) {}
+          updateBtn(true);
+          return true;
+        } else {
+          audio.pause();
+          try { localStorage.removeItem('birthday-ambient-playing'); } catch (e) {}
+          updateBtn(false);
+          return false;
+        }
+      }
+      if (btn) {
+        btn.addEventListener('click', function() { toggleAudio(); });
+      }
+      window.addEventListener('message', function(e) {
+        if (!e.data || e.data.type !== 'birthday-ambient') return;
+        if (e.data.action === 'toggle') {
+          var playing = toggleAudio();
+          try { e.source.postMessage({ type: 'birthday-ambient', playing: playing }, '*'); } catch (err) {}
+        } else if (e.data.action === 'getState') {
+          var playing = !audio.paused;
+          try { e.source.postMessage({ type: 'birthday-ambient', playing: playing }, '*'); } catch (err) {}
+        }
+      });
+      audio.play().then(function() {
+        updateBtn(true);
+        try { localStorage.setItem('birthday-ambient-playing', '1'); } catch (err) {}
+      }).catch(function() {
+        updateBtn(false);
+      });
+    })();
+  </script>
 </body>
 </html>
-

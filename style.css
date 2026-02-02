@@ -148,6 +148,10 @@ body::-webkit-scrollbar-thumb {
   transform: translateY(-1px);
 }
 
+.icon-button-music {
+  flex-shrink: 0;
+}
+
 @media (max-width: 640px) {
   .site-header-inner {
     padding-inline: 12px;

@@ -18,6 +18,8 @@ Suggested files you can create (or rename your images to match):
   If you add this file, the site will crossfade between the two every few seconds for a natural wink.  
   If you don’t add it, a subtle “squint” animation is used instead.
 
+**Ambient music (optional):** Add **`ambient.mp3`** or **`ambient.m4a`** for background music. A 🎵/🔊 toggle appears in the nav; volume is 40%. Use calm, non-lyrical music (soft piano, acoustic, or gentle ambient).
+
 You can also add more images and reference them anywhere in `index.html` with:
 
 ```html

@@ -317,6 +317,15 @@ function setupCake() {
 
 // Secret letter easter egg – click all hero letters
 function setupSecretLetters() {
+  // Always set up the secret page confetti button when present (e.g. on secret.html)
+  const secretConfettiBtn = document.getElementById("secret-confetti");
+  if (secretConfettiBtn) {
+    secretConfettiBtn.addEventListener("click", () => {
+      Confetti.init();
+      Confetti.burst(260);
+    });
+  }
+
   const letters = document.querySelectorAll(".hero-title .letter");
   if (letters.length === 0) return;
 
@@ -348,13 +357,6 @@ function setupSecretLetters() {
       }
     });
   });
-
-  const secretConfettiBtn = document.getElementById("secret-confetti");
-  if (secretConfettiBtn) {
-    secretConfettiBtn.addEventListener("click", () => {
-      Confetti.burst(260);
-    });
-  }
 }
 
 // Konami code easter egg
@@ -419,6 +421,83 @@ function setupWinkingIcon() {
   }
 }
 
+// Ambient music: toggle in nav; when in iframe, control parent (shell) audio so it doesn't restart on nav
+const AMBIENT_STORAGE_KEY = "birthday-ambient-playing";
+const AMBIENT_MESSAGE_TYPE = "birthday-ambient";
+
+function setupAmbientMusic() {
+  const btn = document.getElementById("music-toggle");
+  if (!btn) return;
+
+  const iconEl = btn.querySelector(".music-icon");
+
+  function updateIcon(playing) {
+    if (iconEl) iconEl.textContent = playing ? "🔊" : "🎵";
+    btn.title = playing ? "Pause ambient music" : "Play ambient music";
+    btn.setAttribute("aria-label", playing ? "Pause ambient music" : "Play ambient music");
+  }
+
+  // When inside the shell's iframe: tell parent to toggle; parent will post back the new state
+  if (window !== window.top) {
+    window.addEventListener("message", (e) => {
+      if (e.data && e.data.type === AMBIENT_MESSAGE_TYPE && typeof e.data.playing === "boolean") {
+        updateIcon(e.data.playing);
+      }
+    });
+    btn.addEventListener("click", () => {
+      window.parent.postMessage({ type: AMBIENT_MESSAGE_TYPE, action: "toggle" }, "*");
+    });
+    // Ask parent for current state so the button shows the right icon
+    window.parent.postMessage({ type: AMBIENT_MESSAGE_TYPE, action: "getState" }, "*");
+    updateIcon(false);
+    return;
+  }
+
+  // When page is opened directly (not in iframe): use this page's audio
+  const audio = document.getElementById("ambient-audio");
+  if (!audio) return;
+
+  audio.volume = 0.4;
+  audio.addEventListener("play", () => updateIcon(true));
+  audio.addEventListener("pause", () => updateIcon(false));
+
+  btn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play().catch(() => {});
+      try { localStorage.setItem(AMBIENT_STORAGE_KEY, "1"); } catch (e) {}
+      updateIcon(true);
+    } else {
+      audio.pause();
+      try { localStorage.removeItem(AMBIENT_STORAGE_KEY); } catch (e) {}
+      updateIcon(false);
+    }
+  });
+
+  try {
+    if (localStorage.getItem(AMBIENT_STORAGE_KEY) === "1") {
+      audio.play().catch(() => {});
+      updateIcon(true);
+    } else {
+      updateIcon(false);
+    }
+  } catch (e) {
+    updateIcon(false);
+  }
+}
+
+// When a content page is opened in the top window, redirect to shell so audio never reloads
+function redirectToShellIfNeeded() {
+  if (window === window.top && typeof window.location !== "undefined") {
+    var path = window.location.pathname || "";
+    var page = path.split("/").pop() || "";
+    if (page && page !== "index.html" && page.endsWith(".html")) {
+      window.location.replace("index.html?page=" + encodeURIComponent(page));
+      return true;
+    }
+  }
+  return false;
+}
+
 // Small entrance confetti on first load
 function initialEntrance() {
   setTimeout(() => {
@@ -427,10 +506,8 @@ function initialEntrance() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize confetti first
+  if (redirectToShellIfNeeded()) return;
   Confetti.init();
-  
-  // Setup all features
   setupSmoothScroll();
   setupRevealOnScroll();
   setupTypewriter();
@@ -440,12 +517,10 @@ document.addEventListener("DOMContentLoaded", () => {
   setupKonamiCode();
   setupConfettiButton();
   setupWinkingIcon();
-  
-  // Trigger initial entrance confetti after a short delay
+  setupAmbientMusic();
   initialEntrance();
 });
 
-// Also ensure canvas resizes on window load
 window.addEventListener("load", () => {
   Confetti.init();
 });

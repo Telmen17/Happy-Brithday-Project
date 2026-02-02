@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+  <audio id="ambient-audio" loop preload="metadata">
+    <source src="assets/background.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="background-gradient"></div>
+  <div class="floating-balloons">
+    <div class="balloon b1"></div>
+    <div class="balloon b2"></div>
+    <div class="balloon b3"></div>
+    <div class="balloon b4"></div>
+  </div>
+
+  <main class="page">
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="home.html" class="site-logo">For<br class="logo-br"> You<span> 🎂</span></a>
+        <nav class="site-nav">
+          <a href="timeline.html">Memories</a>
+          <a href="letter.html">Letter</a>
+          <a href="wishes.html">Wishes</a>
+          <a href="gallery.html">Gallery</a>
+        </nav>
+      </div>
+    </header>
+
+    <header class="hero" id="top">
+      <div class="hero-inner">
+        <p class="hero-overline">For my favorite human</p>
+        <h1 class="hero-title">
+          <span class="letter" data-secret="H">H</span>
+          <span class="letter" data-secret="A">a</span>
+          <span class="letter" data-secret="P">p</span>
+          <span class="letter" data-secret="P2">p</span>
+          <span class="letter" data-secret="Y">y</span>
+          <span>&nbsp;</span>
+          <br>
+          <span class="letter" data-secret="B">B</span>
+          <span class="letter" data-secret="I">i</span>
+          <span class="letter" data-secret="R">r</span>
+          <span class="letter" data-secret="T">t</span>
+          <span class="letter" data-secret="H3">h</span>
+          <span class="letter" data-secret="D">d</span>
+          <span class="letter" data-secret="A2">a</span>
+          <span class="letter" data-secret="Y2">y</span>
+          <span> 🎉</span>
+        </h1>
+        <p class="hero-subtitle">
+          Another lap around the sun with you in my life — and I'm so grateful for every ridiculous, beautiful, unforgettable moment we've shared. 💫
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="timeline.html">Take a trip down memory lane</a>
+          <a class="btn ghost" href="letter.html">Open your birthday letter</a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="tag">Made with way too much love</div>
+          <button class="icon-button" id="confetti-trigger" title="Press me ✨">
+            <span>✨</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-photo-frame">
+        <img src="assets/IMG_9974.JPG" alt="Us together" class="hero-photo" />
+        <div class="photo-caption">The day everything was a little brighter ✨</div>
+      </div>
+    </header>
+
+    <footer class="footer">
+      <p class="footer-text">
+        P.S. Try typing the <span class="footer-code">↑ ↑ ↓ ↓ ← → ← → B A</span> keys on your keyboard. Just saying. 😉
+      </p>
+      <a class="btn text" href="#top">Back to the stars ↑</a>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
