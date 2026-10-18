@@ -1,0 +1,2 @@
+Here lies my special project made with nostalgia and bittersweet memories that have been eternalized to not be forgotten. It was made for Indra, my high school sweetheart, for her 23rd birthday in 2026.
+High school is a fond memory with full of joy as well as pain. This birthday project was made in her honor and memory within my life. May this life chapter be fully honored and respected and moved on.
